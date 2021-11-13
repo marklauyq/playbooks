@@ -1,0 +1,3 @@
+---
+  xmrig_dir: /home/pi/xmrig
+  xmrig_build_dir: /home/pi/xmrig/build
