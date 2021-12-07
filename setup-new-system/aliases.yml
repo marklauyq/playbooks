@@ -30,3 +30,13 @@
   lineinfile:
     path: '{{ home_path }}.custom_alias'
     line: 'alias gpull="git pull origin"'
+
+- name: git checkout
+  lineinfile:
+    path: '{{ home_path }}.custom_alias'
+    line: 'alias gitc="git checkout"'
+
+- name: list all
+  lineinfile:
+    path: '{{ home_path }}.custom_alias'
+    line: 'alias ll="ls -al"'
