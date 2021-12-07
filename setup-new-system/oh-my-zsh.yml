@@ -1,0 +1,22 @@
+---
+- name: check for omz
+  stat:
+    path: '{{ home_path }}.oh-my-zsh'
+  register: omz_result
+
+- name: download oh my zsh
+  get_url:
+    url: "https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+    dest: "{{ home_path }}Downloads/"
+    mode: "+x"
+  when: not omz_result.stat.exists
+
+- name: run oh my zsh install script
+  command: "{{ home_path }}Downloads/install.sh"
+  when: not omz_result.stat.exists
+
+- name: delete file after the install
+  file:
+    path: "{{ home_path }}Downloads/install.sh"
+    state: absent
+  when: not omz_result.stat.exists

@@ -1,0 +1,11 @@
+---
+- name: WSL setup paybook
+  hosts: localhost
+  vars_prompt:
+  - name: "my_password"
+    prompt: "Enter password"
+    private: yes
+  tasks:
+    - include: setup-new-system/oh-my-zsh.yml
+    
+      

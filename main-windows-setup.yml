@@ -1,0 +1,14 @@
+---
+- name: WSL setup paybook
+  hosts: localhost
+  vars:
+    - home_path: /home/mark/
+  vars_prompt:
+    - name: "my_password"
+      prompt: "Enter password"
+      private: yes
+  tasks:
+    - include: setup-new-system/wsl-setup.yml
+    - include: setup-new-system/oh-my-zsh.yml
+    - include: setup-new-system/installing-go-land.yml
+    - include: setup-new-system/aliases.yml
