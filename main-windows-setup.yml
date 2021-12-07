@@ -10,5 +10,5 @@
   tasks:
     - include: setup-new-system/wsl-setup.yml
     - include: setup-new-system/oh-my-zsh.yml
-    - include: setup-new-system/installing-go-land.yml
+    - include: setup-new-system/installing-go-land-linux.yml
     - include: setup-new-system/aliases.yml

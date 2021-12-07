@@ -1,11 +1,12 @@
 ---
 - name: WSL setup paybook
-  hosts: localhost
+  hosts: macbook
+  vars:
+    - home_path: /Users/MarkLau/
   vars_prompt:
-  - name: "my_password"
-    prompt: "Enter password"
-    private: yes
   tasks:
     - include: setup-new-system/oh-my-zsh.yml
+    - include: setup-new-system/homebrew.yml
+    - include: setup-new-system/aliases.yml
     
       

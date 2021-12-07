@@ -13,10 +13,11 @@
 
 - name: run oh my zsh install script
   command: "{{ home_path }}Downloads/install.sh"
+  async: 1
+  poll: 1
   when: not omz_result.stat.exists
 
 - name: delete file after the install
   file:
     path: "{{ home_path }}Downloads/install.sh"
     state: absent
-  when: not omz_result.stat.exists
