@@ -1,0 +1,12 @@
+---
+- name: WSL setup paybook
+  hosts: macbook
+  vars:
+    - home_path: /Users/MarkLau/
+  vars_prompt:
+  tasks:
+    - include: setup-new-system/oh-my-zsh.yml
+    - include: setup-new-system/homebrew.yml
+    - include: setup-new-system/aliases.yml
+    
+      

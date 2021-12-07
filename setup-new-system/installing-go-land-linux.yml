@@ -1,0 +1,24 @@
+---
+- name: check if GoLand exist
+  stat:
+    path:  '{{ home_path }}goland/GoLand-2021.3/'
+  register: goland_state
+
+- name: Create a directory if it does not exist
+  file:
+    path: '{{ home_path }}goland/'
+    state: directory
+    mode: '0755'
+
+- name: un tar the download file
+  unarchive:
+    src: https://download.jetbrains.com/go/goland-2021.3.tar.gz
+    dest: '{{ home_path }}goland/'
+    remote_src: yes
+  when: not goland_state.stat.exists
+
+- name: add an alias for goland in zshrc
+  lineinfile:
+    path: '{{ home_path }}.zshrc'
+    line: "alias goland='{{ home_path }}goland/GoLand-2021.3/bin/goland.sh'"
+    state: present

@@ -1,0 +1,12 @@
+---
+- name: install rancher node
+  hosts: linux
+  tasks:
+    - name: check if pi is already a node
+      become: yes
+      register: slave_node
+    - name: check if pi is already a master node
+      become: yes
+      register: master_node
+    - name: if pi is not a master or slave node, install k3s
+    - name: set the node to become a slave node

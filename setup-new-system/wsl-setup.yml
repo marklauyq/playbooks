@@ -1,0 +1,38 @@
+---
+- name: install the essential files
+  become: yes
+  apt:
+    name:
+      - git
+      - vim
+      - zsh
+      - htop
+      - tmux
+      - net-tools
+    state: latest
+    update_cache: true
+
+- name: Check for zsh
+  stat:
+    path: '{{ home_path }}.shell_is_zsh'
+  register: zsh_result
+
+- name: Case insensitve password string match
+  expect:
+    command: "chsh -s /usr/bin/zsh"
+    responses:
+      (?i)Password: "{{ my_password }}"
+  when: not zsh_result.stat.exists
+    
+- name: Create zsh file
+  file:
+    path: '{{ home_path }}.shell_is_zsh'
+    state: touch
+  when: not zsh_result.stat.exists
+
+- name: let's configure the display
+  lineinfile:
+    path: '{{ home_path }}.zshrc'
+    line: "export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0"
+    state: present
+      

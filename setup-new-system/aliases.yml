@@ -1,0 +1,42 @@
+---
+- name: check if alias file exist
+  stat:
+    path: '{{ home_path }}.custom_alias'
+  register: alias_file
+  
+- name: create the alias file
+  file: 
+    path: '{{ home_path }}.custom_alias'
+    state: touch
+    mode: +x
+  when: not alias_file.stat.exists
+
+- name: ensure that custom alias is added to zshrc
+  lineinfile: 
+    path: '{{ home_path }}.zshrc'
+    line: 'source {{ home_path }}.custom_alias'
+
+- name: git status alias
+  lineinfile:
+    path: '{{ home_path }}.custom_alias'
+    line: 'alias gs="git status"'
+
+- name: git push
+  lineinfile:
+    path: '{{ home_path }}.custom_alias'
+    line: 'alias gpush="git push origin"'
+
+- name: git pull
+  lineinfile:
+    path: '{{ home_path }}.custom_alias'
+    line: 'alias gpull="git pull origin"'
+
+- name: git checkout
+  lineinfile:
+    path: '{{ home_path }}.custom_alias'
+    line: 'alias gitc="git checkout"'
+
+- name: list all
+  lineinfile:
+    path: '{{ home_path }}.custom_alias'
+    line: 'alias ll="ls -al"'
