@@ -1,6 +1,6 @@
 ---
 - name: Let's mine monearo
-  hosts: linux
+  hosts: raspberry-pi
   tasks:
     - include_vars: vars.yml
     - name: install the essential files

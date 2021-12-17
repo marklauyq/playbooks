@@ -6,7 +6,6 @@
   vars_prompt:
   tasks:
     - include: setup-new-system/oh-my-zsh.yml
-    - include: setup-new-system/homebrew.yml
     - include: setup-new-system/aliases.yml
     
       
