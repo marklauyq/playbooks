@@ -40,3 +40,8 @@
   lineinfile:
     path: '{{ home_path }}.custom_alias'
     line: 'alias ll="ls -al"'
+
+- name: Docker compose
+  lineinfile:
+    path: '{{ home_path }}.custom_alias'
+    line: 'alias dc="docker compose"'
