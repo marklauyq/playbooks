@@ -1,0 +1,30 @@
+---
+- name: Deploy a branch to dev environment
+  hosts: dev-mark
+  vars:
+    - code_dir: /var/www/docker/mark/belly/code/Production_BELLY/
+    - code_git_dir: "{{ code_dir }}.git"
+  tasks:
+    - name: Let's see if we can connect to the server
+      command: "git --git-dir {{ code_git_dir }} branch"
+      register: output
+    
+    - name: Print out the output
+      debug:
+        msg: "{{ output.stdout }}"
+
+    - name: add the configs that we want to stash
+      command: "chdir={{ code_dir }} git add ."
+
+    - name: stash the configs
+      command: "chdir={{ code_dir }} git stash"
+
+    - name: checkout the branch we want
+      command: "chdir={{ code_dir }} git checkout {{ branch }} "
+    
+    - name: make sure the branch is up to date
+      command: "chdir={{ code_dir }} git reset --hard origin/{{branch}}"
+
+    - name: add the configs back
+      command: "chdir={{ code_dir }} git stash pop"
+

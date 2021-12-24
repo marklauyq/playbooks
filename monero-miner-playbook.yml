@@ -15,23 +15,35 @@
           - libhwloc-dev
         state: latest
         update_cache: true
+
     - name: Create directory
       file:
         path: "{{ xmrig_dir }}"
         state: directory
+
     - name: clone the repo
       git:
         repo: https://github.com/xmrig/xmrig.git
         dest: "{{ xmrig_dir }}"
         clone: yes
         update: yes
+
     - name: Create build directory
       file:
         path: "{{ xmrig_build_dir }}"
         state: directory
+
+    - name: check if build is already done
+      stat:
+        path: "{{ xmrig_build_dir }}xmrig"
+      register: xmrig
+
     - name: build
       command: "{{ item }} chdir={{ xmrig_build_dir }}"
       with_items:
         - cmake ..
         - make
+      when: not xmrig.stat.exists
+
+    - name: Run xmrig in the background
 

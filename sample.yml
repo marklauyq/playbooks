@@ -1,0 +1,7 @@
+---
+- name: WSL setup paybook
+  hosts: localhost
+  vars:
+    - home_path: /home/mark/
+  tasks:
+    - include: chope/install-aws-cli.yml

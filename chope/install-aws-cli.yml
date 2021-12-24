@@ -1,0 +1,44 @@
+---
+- name: Check if aws cli is already installed
+  stat:
+    path: /usr/local/bin/aws
+  register: aws_state
+
+- name: Download the installation folder
+  get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: "{{ home_path }}Downloads/awscliv2.zip"
+    mode: "+x"
+
+- name: unzip the tool
+  unarchive:
+    src: "{{ home_path }}Downloads/awscliv2.zip"
+    dest: "{{ home_path }}Downloads/"
+
+- name: Run the install file
+  become: yes
+  command: "{{ home_path }}Downloads/aws/install"
+  when: not aws_state.stat.exists
+
+- name: Run the install file as an update
+  become: yes
+  command: "{{ home_path }}Downloads/aws/install --update"
+  when: aws_state.stat.exists
+
+- name: Remove the installation files
+  file:
+    path: "{{ home_path }}Downloads/awscliv2.zip"
+    state: absent
+
+- name: Remove the installation files
+  file:
+    path: "{{ home_path }}Downloads/aws"
+    state: absent
+
+- name: Test the command
+  command: "aws --version"
+  register: aws_output
+
+- name: Check aws version
+  debug:
+    msg: "{{ aws_output.stdout }}"
