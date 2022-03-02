@@ -2,8 +2,9 @@
 - name: Deploy a branch to dev environment
   hosts: dev-mark
   vars:
-    - code_dir: /var/www/docker/mark/belly/code/Production_BELLY/
+    - code_dir: /var/www/docker/mark/b2b/code/Production_B2B/
     - code_git_dir: "{{ code_dir }}.git"
+    - branch: "sgta-17-booking-confirmation-switch"
   tasks:
     - name: Let's see if we can connect to the server
       command: "git --git-dir {{ code_git_dir }} branch"

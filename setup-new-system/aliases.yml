@@ -24,12 +24,12 @@
 - name: git push
   lineinfile:
     path: '{{ home_path }}.custom_alias'
-    line: 'alias gpush="git push origin"'
+    line: 'alias gpush="git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3 | xargs git push origin"'
 
 - name: git pull
   lineinfile:
     path: '{{ home_path }}.custom_alias'
-    line: 'alias gpull="git pull origin"'
+    line: 'alias gpull="git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3 | xargs git pull origin"'
 
 - name: git checkout
   lineinfile:
@@ -45,3 +45,8 @@
   lineinfile:
     path: '{{ home_path }}.custom_alias'
     line: 'alias dc="docker compose"'
+
+- name: git commitizen
+  lineinfile:
+    path: '{{ home_path }}.custom_alias'
+    line: 'alias gcomm="git cz -a"'
